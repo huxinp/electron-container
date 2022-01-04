@@ -2,19 +2,26 @@
   "name": "electorn-container",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node scripts/dev.js && electron --inspect=5858 ./src",
     "build": "node scripts/build.js",
-    "dev": "node scripts/dev.js && electron --inspect=5858 ./src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electorn": "0.0.1-security"
+    "@electron/remote": "^2.0.1",
+    "electron": "^16.0.5",
+    "electron-window-manager": "^6.6.13"
   },
   "devDependencies": {
-    "inquirer": "^8.2.0"
+    "chalk": "^2.4.2",
+    "electron-rebuild": "^3.2.5",
+    "figlet": "^1.5.2",
+    "fs-extra": "^10.0.0",
+    "handlebars": "^4.7.7",
+    "inquirer": "^8.2.0",
+    "semver": "^7.3.5"
   }
 }

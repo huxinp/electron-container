@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%
+    }
+    .home {
+      padding: 10px 20px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    #url-input {
+      font-size: 14px;
+      line-height: 1.5em;
+      padding: 5px 8px;
+      outline: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  </style>
+  <title>Electron Container</title>
+</head>
+<body>
+  <div class="home">
+    <h1>Electron Container</h1>
+    <lable for='url-input'>
+      <span>url:</span>
+      <input id="url-input" autofocus pattern='(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]' /> 
+    </lable>
+    <span id="validate"></span>
+  </div>
+</body>
+<script>
+  const remote = require("@electron/remote");
+  var input = document.getElementById('url-input');
+  var validate = document.getElementById('validate');
+  input.onkeydown = function (e) {
+    if (e.keyCode === 13) {
+      validateUrl(e.target.value)
+    }
+  }
+  input.onblur = function (e) {
+    validateUrl(e.target.value)
+  }
+  input.onfocus = function () {
+    validate.innerText = ''
+  }
+
+  function validateUrl (url) {
+    if (!url) return
+    var regexp = /(https?|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/;
+    const valid = regexp.exec(url);
+    if (!valid) {
+      validate.innerText = '地址不合法';
+      return
+    }
+    console.log('valid', valid)
+    const protocol = valid[1];
+    if (protocol === 'https' || protocol === 'http') {
+      console.log(1)
+    }
+    else if (protocol === 'file') {
+      console.log(2)
+    }
+  }
+  console.log('remote', remote)
+</script>
+</html>
